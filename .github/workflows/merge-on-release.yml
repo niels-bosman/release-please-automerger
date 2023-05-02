@@ -21,5 +21,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           
           git checkout main
-          git merge --squash --no-ff --no-edit -m "chore: release to master" origin/develop
+          git merge --squash --no-edit -m "chore: release to master" origin/develop
           git push origin main
