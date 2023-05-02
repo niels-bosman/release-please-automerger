@@ -26,6 +26,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           
           git checkout ${{ env.TARGET_BRANCH }}
-          git merge --squash --no-edit origin/${{ env.SOURCE_BRANCH }}
-          git commit -m "chore: release from ${{ env.SOURCE_BRANCH }} to ${{ env.TARGET_BRANCH }}"
+          git merge --no-ff --no-edit origin/${{ env.SOURCE_BRANCH }}
           git push origin ${{ env.TARGET_BRANCH }}
