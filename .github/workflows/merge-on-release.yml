@@ -5,6 +5,10 @@ on:
     types:
       - created
 
+env:
+  SOURCE_BRANCH: develop
+  TARGET_BRANCH: main
+
 jobs:
   merge:
     runs-on: ubuntu-latest
@@ -16,12 +20,12 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.AUTOMERGER_PAT }}
 
-      - name: Merge develop into main
+      - name: Merge source branch into target branch
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-
-          git checkout main
-          git merge --squash --no-edit origin/develop
-          git commit -m "chore: release to main"
-          git push origin main
+          
+          git checkout ${{ env.TARGET_BRANCH }}
+          git merge --squash --no-edit origin/${{ env.SOURCE_BRANCH }}
+          git commit -m "chore: release from ${{ env.SOURCE_BRANCH }} to ${{ env.TARGET_BRANCH }}"
+          git push origin ${{ env.TARGET_BRANCH }}
